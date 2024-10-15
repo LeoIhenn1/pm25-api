@@ -36,8 +36,8 @@ The **PM2.5 REST API** is a robust web service built using FastAPI that allows u
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/yourusername/pm25-rest-api.git
-   cd pm25-rest-api
+   git clone https://github.com/LeoIhenn1/pm25-api.git
+
 
 2. **Use ./run build command to build your docker image:**
    
