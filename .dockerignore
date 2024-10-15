@@ -1,0 +1,28 @@
+# Ignore virtual environment
+venv/
+.env/
+
+# Ignore Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore git files
+.git
+.gitignore
+
+# Ignore IDE/editor settings
+.vscode/
+.idea/
+
+# Ignore logs and temp files
+*.log
+*.tmp
+
+# Ignore data files
+data/global_pm25.nc
+
+# Ignore Docker-specific files
+Dockerfile
+docker-compose.yml

@@ -1,0 +1,45 @@
+#!/bin/bash
+
+APP_NAME="pm25"
+TEST_IMAGE="${APP_NAME}-test"
+
+case "$1" in
+  build)
+    echo "Building Docker image for app..."
+    docker build --target final -t $APP_NAME .  # Explicitly build the final stage for the app
+    ;;
+  up)
+    # Check if the app image is built
+    if [[ "$(docker images -q $APP_NAME 2> /dev/null)" == "" ]]; then
+      echo "Image not found. Building the app image..."
+      docker build --target final -t $APP_NAME .  # Explicitly build the final stage
+    fi
+    echo "Starting Docker container for the app..."
+    docker run -d --name $APP_NAME -p 8000:8000 $APP_NAME
+    ;;
+  down)
+    echo "Stopping and removing Docker container..."
+    docker stop $APP_NAME
+    docker rm $APP_NAME
+    ;;
+  restart)
+    echo "Restarting Docker container..."
+    docker stop $APP_NAME
+    docker rm $APP_NAME
+    docker run -d --name $APP_NAME -p 8000:8000 $APP_NAME
+    ;;
+  test)
+    echo "Building and running tests inside Docker container..."
+    docker build --target test -t $TEST_IMAGE .  # Build the image from the test stage
+    docker run --rm $TEST_IMAGE  # Run the test image and remove the container after
+    ;;
+  logs)
+    echo "Fetching Docker container logs..."
+    docker logs -f $APP_NAME
+    ;;
+  *)
+    echo "Invalid command."
+    echo "Usage: $0 {build|up|down|restart|test|logs}"
+    exit 1
+    ;;
+esac
