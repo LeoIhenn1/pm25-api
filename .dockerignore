@@ -20,9 +20,6 @@ __pycache__/
 *.log
 *.tmp
 
-# Ignore data files
-data/global_pm25.nc
-
 # Ignore Docker-specific files
 Dockerfile
 docker-compose.yml
